@@ -192,6 +192,7 @@ input.addEventListener('keyup', () => {
     if (name === '') {
         // Reset the studentsList variable to hold the whole list of objects
         studentsList = data;
+        p.style.display = 'none';
     } else {
         // Else, we assign an empty list to the studentsList variable which will be filled with search results later.
         studentsList = [];
@@ -208,12 +209,33 @@ input.addEventListener('keyup', () => {
                 studentsList.push(student);
             }
         }
+        // Checking if there are no results
+        if(studentsList.length === 0) {
+            // Display "No results" message
+            p.style.display = 'block';
+        } else {
+            // Hide the message to prepare the page for inserting list items
+            p.style.display = 'none';
+        }
     }
     // Showing page 1 of the search results
     showPage(1);
     // Showing the page numbers
     addPagination(1);
-})
+});
+
+// Adding a new <p> tag to contain "No results", it will remain hidden until there are no results based on the search
+// Selecting ".page" to insert the new <p> inside it
+const page = document.querySelector('.page');
+// Selecting ".student-list" to insert the new <p> before it
+const ul = document.querySelector('.student-list');
+// Creating the p element and configuring its style to be not shown by default and to be centered
+const p = document.createElement('p');
+p.textContent = 'No results';
+p.style.display = 'none';
+p.style.textAlign = 'center';
+// Inserting the
+page.insertBefore(p, ul);
 
 // Call functions
 // Showing page 1 of the search results
